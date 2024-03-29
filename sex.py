@@ -8,6 +8,7 @@ from datetime import date, datetime
 import win32gui, psutil, json, os
 
 #riot_lockfile = 'C:/Users/Za/AppData/Local/Riot Games/Riot Client/Config/lockfile'
+#riot_connection = LeagueConnection(riot_lockfile)
 league_lockfile = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
 default_save_file = "PlayerHistory.ngga"
 def save_config (config_data, filename):
@@ -78,29 +79,35 @@ while (True):
         time.sleep (15)
     if client_name in running_process:
         try:
-            #print (league_lockfile)
+            time.sleep (5) #5 seconds sleep cuz League is slow AF
+            #Setup
             league_lockfile = getLockfilePath()
-            #print (league_lockfile)
             total_time = 0
             total_game = 0
             connection = LeagueConnection(league_lockfile)
-            #riot_connection = LeagueConnection(riot_lockfile)
             A = get_match_history(connection, get_summoner_puuid(connection))
+            #Current time
             now = datetime.now()
+            #Loop over all 20 games in current player's history
             for i in range (19, -1, -1):
                 niggus = {}
                 for tag in keep:
                     niggus[tag] = A['games']['games'][i][tag]
+                #If current game is not in list, add it to the list
+                #and update the tag to update the history file later.
                 if niggus not in current_list:
                     current_list.append (niggus)
                     save_fag = 1
-                    print (" niggus ",niggus)
+                #Check if current game is counted depending on game mode
                 if (A['games']['games'][i]['gameMode'] in GameModeList):
                     total_game += 1
                     total_time += A['games']['games'][i]['gameDuration']
+                #Get game start date string
                 test_time = A['games']['games'][i]['gameCreationDate']
+                #Convert duration string to datetime object
                 test_time_str = datetime.strptime(test_time, "%Y-%m-%dT%H:%M:%S.%fZ")
                 #print (diff_dates(test_time_str, now), end = ' ')
+            #There is a new game recorded, so we start updating the file.
             if (save_fag == 1):
                 print ('\n_______________________________')
                 print ("Total game time (hour): ",total_time/60/60)
@@ -115,7 +122,7 @@ while (True):
         except Exception as ex:
             print ("Exception! Game closed or problem with lockfile")
             print ("Exception details: ",ex)
-            #raise
+            #raise #raise the exception instead of ommiting it.
     else:
         print ("League not running")
     time.sleep (10) #10 seconds sleep
