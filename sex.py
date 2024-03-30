@@ -3,18 +3,18 @@ from league_connection import LeagueConnection
 from league_client.summoner import get_summoner_puuid
 from league_client.match_history import get_match_history
 import time
-from datetime import date, datetime
+import traceback
+from datetime import date, datetime, timedelta
 #from dateutil import parser
 import win32gui, psutil, json, os
-
+import util_function
 #riot_lockfile = 'C:/Users/Za/AppData/Local/Riot Games/Riot Client/Config/lockfile'
 #riot_connection = LeagueConnection(riot_lockfile)
-league_lockfile = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
-default_save_file = "PlayerHistory.ngga"
-def save_config (config_data, filename):
-    pass
-def load_config (filename):
-    return config_data
+LEAGUE_LOCK_FILE = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
+CONFIG_FILE_LOCATION = "params.ini"
+ConfigData = util_function.load_config_preprocessed (CONFIG_FILE_LOCATION)
+#HISTORY_FILE_LOCATION = "PlayerHistory.ngga"
+HISTORY_FILE_LOCATION = ConfigData["CoreSetting"]["savefilepath"]
 #Hard coded value that is not meant to be changed
 Keep = ['endOfGameResult', 'gameCreationDate', 'gameDuration',
         'gameMode', 'gameType']
@@ -22,25 +22,24 @@ GameName = 'League of Legends (TM) Client'
 ClientName = 'League of Legends'
 ClientExeName = 'LeagueClient.exe'
 #GameModeList = ['CLASSIC', 'PRACTICETOOL', 'ARAM']
-GameModeList = ['CLASSIC', 'PRACTICETOOL']
-GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
+#GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
+GameModeList = ['CLASSIC', 'ARAM']
+GameTypeList = ['MATCHED_GAME']
 LolTaskRemoveList = ['LeagueCrashHandler64.exe','LeagueClientUxRender.exe',
                      'LeagueClientUx.exe','LeagueClient.exe']
 
-def findPath(name):
+def find_path(name):
     for pid in psutil.pids():
         if psutil.Process(pid).name() == name:
-            print ("FOUND")
+            print ("FOUND ", name)
             return psutil.Process(pid).exe()
-        #elif len(psutil.Process(pid).name()) > 15:
-        #    print (psutil.Process(pid).name())
-    print ("findPath NOT FOUND!!!!!!")
-def getLockfilePath ():
-    leagueClientLocation = findPath(client_exe_name)
+    print ("find_path NOT FOUND!!!!!!", name)
+def get_lockfile_path ():
+    leagueClientLocation = find_path(ClientExeName)
     if os.path.exists(leagueClientLocation):
         parent_dir = os.path.split(leagueClientLocation)[0]
-        league_lockfile = os.path.join (parent_dir, 'lockfile').replace(os.sep, '/')
-    return league_lockfile
+        LEAGUE_LOCK_FILE = os.path.join (parent_dir, 'lockfile').replace(os.sep, '/')
+    return LEAGUE_LOCK_FILE
 def get_running_process ():
     window_titles = set()
     def winEnumHandler( hwnd, ctx ):
@@ -49,82 +48,138 @@ def get_running_process ():
     win32gui.EnumWindows(winEnumHandler, None)
     return window_titles
 def shutdown_lol ():
-    for proc in psutil.process_iter():
-        try:
-            if proc.name() in LolTaskRemoveList:
-                proc.kill()
-        except:
-            pass
-def diff_dates (date1, date2):
-    return abs(date2-date1).days
-def readHistory(save_name = default_save_file):
-    current_list = []
+    while (True):
+        flag = 0
+        for proc in psutil.process_iter():
+            try:
+                if proc.name() in LolTaskRemoveList:
+                    proc.kill()
+                    flag = 1
+                    break
+            except:
+                pass
+        if (flag == 0):
+            time.sleep (3)
+            return
+def read_history(save_name = HISTORY_FILE_LOCATION):
+    GameHistoryList = []
     try:
         with open(save_name, "r", encoding = "UTF-16") as fp:
-            current_list = json.load(fp)
+            GameHistoryList = json.load(fp)
     except Exception as e:
         print ("File read exception: ", e)
-    return current_list
-def writeHistory (current_list, save_name = default_save_file):
+    return GameHistoryList
+def write_history (GameHistoryList, save_name = HISTORY_FILE_LOCATION):
     with open(save_name, "w", encoding = "UTF-16") as fp:
-        json.dump(current_list, fp)
-current_list = readHistory()
-save_fag = 0
-checking_time = 10
+        json.dump(GameHistoryList, fp)
+def hours_diff_check (date1, date2, Hours):
+    return abs(date1 - date2) < timedelta(hours=Hours)
+def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 0):
+#Check if the player is eligible to play, return True if allowed
+    def get_plays_data (GameHistoryList, maxHourDifference, GameModeList, GameTypeList, verbose = 0):
+        Now = datetime.now()
+        SumGame = 0
+        SumTime = 0
+        for i in range (0, len (GameHistoryList)):
+            #Could be done faster with binary search, but list is only 20-50 items so fuck it
+            #Convert game creation date to datetime object
+            TimeStr = datetime.strptime(GameHistoryList[i]['gameCreationDate'], "%Y-%m-%dT%H:%M:%S.%fZ")
+            GameMode = GameHistoryList[i]['gameMode']
+            GameType = GameHistoryList[i]['gameType']
+            if (GameMode in GameModeList) and (GameType in GameTypeList) and hours_diff_check(TimeStr, Now, maxHourDifference):
+                SumGame+=1
+                SumTime+=GameHistoryList[i]['gameDuration']
+        SumTime = SumTime/60
+        if (verbose == 1):
+            print ('Game count: ',SumGame,', Total time: ',SumTime)
+        return SumGame, SumTime
+    def check_plays (GameHistoryList, Limit, TimeOffset, GameModeList, GameTypeList, verbose = 0):
+        Now = datetime.now()
+        if ((Now - timedelta(hours=TimeOffset)).weekday() not in Limit[4]) or (
+            Now.hour>=Limit[5][1]) or (Now.hour<Limit[5][0]):
+            return True
+        SumGame, SumTime = get_plays_data (GameHistoryList, Limit[3], GameModeList, GameTypeList, verbose = verbose)
+        if SumTime > Limit [2]:
+            return False
+        if SumGame < Limit [0]:
+            return True
+        if SumTime > Limit [1]:
+            return False
+        return True
+    tempFlag = True
+    for limit in ConfigData["limits"]:
+        if (check_plays (GameHistoryList, limit, ConfigData["CoreSetting"]['timeoffset'], GameModeList, GameTypeList, verbose = verbose) == False):
+            #return False, limit[-1]
+            tempFlag = False
+            if (verbose == 1):
+                print ("Not allowed, reason: ",limit)
+        else:
+            if (verbose == 1):
+                print ("Allowed, reason: ",limit)
+    return tempFlag
+
+GameHistoryList = read_history()
+SaveFag = 0
+CheckingTime = 10
 while (True):
-    running_process = get_running_process()
-    if game_name in running_process:
-        checking_time = 5
+    RunningProcess = get_running_process()
+    if GameName in RunningProcess:
+        CheckingTime = 5
         print ("Game is running, skipping")
         time.sleep (15)
-    if client_name in running_process:
+    if ClientName in RunningProcess:
         try:
-            time.sleep (5) #5 seconds sleep cuz League is slow AF
+            if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 0) == False:
+                print ("Not allowed to play, killing the game...")
+                shutdown_lol ()
+                continue
+            time.sleep (1) #1 seconds sleep cuz League is slow AF
             #Setup
-            league_lockfile = getLockfilePath()
-            total_time = 0
-            total_game = 0
-            connection = LeagueConnection(league_lockfile)
-            A = get_match_history(connection, get_summoner_puuid(connection))
+            LEAGUE_LOCK_FILE = get_lockfile_path()
+            TotalTime = 0
+            TotalGame = 0
+            Connection = LeagueConnection(LEAGUE_LOCK_FILE)
+            A = get_match_history(Connection, get_summoner_puuid(Connection))
             #Current time
-            now = datetime.now()
             #Loop over all 20 games in current player's history
             for i in range (19, -1, -1):
-                niggus = {}
-                for tag in keep:
-                    niggus[tag] = A['games']['games'][i][tag]
+                Niggus = {}
+                for tag in Keep:
+                    Niggus[tag] = A['games']['games'][i][tag]
                 #If current game is not in list, add it to the list
                 #and update the tag to update the history file later.
-                if niggus not in current_list:
-                    current_list.append (niggus)
-                    save_fag = 1
+                if Niggus not in GameHistoryList:
+                    GameHistoryList.append (Niggus)
+                    SaveFag = 1
                 #Check if current game is counted depending on game mode
-                if (A['games']['games'][i]['gameMode'] in GameModeList):
-                    total_game += 1
-                    total_time += A['games']['games'][i]['gameDuration']
-                #Get game start date string
-                test_time = A['games']['games'][i]['gameCreationDate']
-                #Convert duration string to datetime object
-                test_time_str = datetime.strptime(test_time, "%Y-%m-%dT%H:%M:%S.%fZ")
-                #print (diff_dates(test_time_str, now), end = ' ')
+                TotalGame += 1
+                TotalTime += A['games']['games'][i]['gameDuration']
             #There is a new game recorded, so we start updating the file.
-            if (save_fag == 1):
+            if (SaveFag == 1):
                 print ('\n_______________________________')
-                print ("Total game time (hour): ",total_time/60/60)
-                print ("Total games count: ",total_game)
-                writeHistory (current_list)
-                save_fag = 0
-            elif (save_fag == 0):
-                save_fag = -1
-                checking_time = min(int(checking_time * 2), 600)
+                print ("Adding game time (hour): ",TotalTime/60/60)
+                print ("Adding games count: ",TotalGame)
+                write_history (GameHistoryList)
+                SaveFag = 0
+            elif (SaveFag == 0):
+                SaveFag = -1
+                CheckingTime = min(int(CheckingTime * 2), 600)
                 print ("Nothing new, skipping")
-            time.sleep (checking_time) #100 seconds sleep
+            if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 1) == False:
+                print ("Not allowed to play, killing the game...")
+                shutdown_lol ()
+                CheckingTime = 10
+            else:
+                CheckingTime = 60
+            time.sleep (CheckingTime) #100 seconds sleep
         except Exception as ex:
             print ("Exception! Game closed or problem with lockfile")
             print ("Exception details: ",ex)
+            print(traceback.format_exc())
             #raise #raise the exception instead of ommiting it.
     else:
-        print ("League not running")
-    time.sleep (10) #10 seconds sleep
+        pass
+        #print ("League not running")
+    time.sleep (3) #1 seconds sleep
 
 
