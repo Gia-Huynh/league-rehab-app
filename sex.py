@@ -5,9 +5,10 @@ from league_client.match_history import get_match_history
 import time
 import traceback
 from datetime import date, datetime, timedelta
-#from dateutil import parser
 import win32gui, psutil, json, os
+from winotify import Notification
 import util_function
+from win10toast import ToastNotifier
 #riot_lockfile = 'C:/Users/Za/AppData/Local/Riot Games/Riot Client/Config/lockfile'
 #riot_connection = LeagueConnection(riot_lockfile)
 LEAGUE_LOCK_FILE = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
@@ -31,9 +32,9 @@ LolTaskRemoveList = ['LeagueCrashHandler64.exe','LeagueClientUxRender.exe',
 def find_path(name):
     for pid in psutil.pids():
         if psutil.Process(pid).name() == name:
-            print ("FOUND ", name)
+            #print ("FOUND ", name)
             return psutil.Process(pid).exe()
-    print ("find_path NOT FOUND!!!!!!", name)
+    #print ("find_path NOT FOUND!!!!!!", name)
 def get_lockfile_path ():
     leagueClientLocation = find_path(ClientExeName)
     if os.path.exists(leagueClientLocation):
@@ -74,8 +75,21 @@ def write_history (GameHistoryList, save_name = HISTORY_FILE_LOCATION):
         json.dump(GameHistoryList, fp)
 def hours_diff_check (date1, date2, Hours):
     return abs(date1 - date2) < timedelta(hours=Hours)
+def printReason (KillReason = "nigger"):
+    toast = ToastNotifier()
+    toast = Notification(app_id="LoL Rehab",
+             title="League is killed, fuck you",
+             msg=KillReason)
+    toast.show()
+    toast = ToastNotifier()
+    toast = Notification(app_id="LoL Rehab",
+             title="Touch some grass",
+             msg="You have set a goal for this, obey it!\n.Get something else to do man, if you have nothing to do, it's your fault, stop playing the game")
+    toast.show()
 def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 0):
 #Check if the player is eligible to play, return True if allowed
+    SumGame = 0
+    SumTime = 0
     def get_plays_data (GameHistoryList, maxHourDifference, GameModeList, GameTypeList, verbose = 0):
         Now = datetime.now()
         SumGame = 0
@@ -94,16 +108,20 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
             print ('Game count: ',SumGame,', Total time: ',SumTime)
         return SumGame, SumTime
     def check_plays (GameHistoryList, Limit, TimeOffset, GameModeList, GameTypeList, verbose = 0):
+            
         Now = datetime.now()
         if ((Now - timedelta(hours=TimeOffset)).weekday() not in Limit[4]) or (
             Now.hour>=Limit[5][1]) or (Now.hour<Limit[5][0]):
             return True
         SumGame, SumTime = get_plays_data (GameHistoryList, Limit[3], GameModeList, GameTypeList, verbose = verbose)
         if SumTime > Limit [2]:
+            #print ('Game count: ',SumGame,', Total time: ',SumTime,' minutes)
+            niggerString = "Total time exceeded, you have played for "+ str(int(SumTime+0.5))+ " minutes, maximum time allowed is "+ str(Limit[2]) +" minutes. Ruleset name: \'"+ str(Limit[6])+"\'"
+            printReason (niggerString)            
             return False
-        if SumGame < Limit [0]:
-            return True
-        if SumTime > Limit [1]:
+        if (SumTime > Limit [1]) and (SumGame > Limit [0]):
+            niggerString = "Total game count and game time exceeded, you have played "+ str(SumGame)+" games for "+ str(int(SumTime+0.5))+" minutes, maximum game count allowed is "+ str(Limit[0])+" games.Ruleset name: \'",Limit[6],"\'"
+            printReason (niggerString)
             return False
         return True
     tempFlag = True
@@ -111,8 +129,7 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
         if (check_plays (GameHistoryList, limit, ConfigData["CoreSetting"]['timeoffset'], GameModeList, GameTypeList, verbose = verbose) == False):
             #return False, limit[-1]
             tempFlag = False
-            if (verbose == 1):
-                print ("Not allowed, reason: ",limit)
+            print ("Not allowed, reason: ",limit)
         else:
             if (verbose == 1):
                 print ("Allowed, reason: ",limit)
@@ -121,27 +138,29 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
 GameHistoryList = read_history()
 SaveFag = 0
 CheckingTime = 10
+SumGame = 0
+print ("Initializing")
 while (True):
     RunningProcess = get_running_process()
     if GameName in RunningProcess:
         CheckingTime = 5
         print ("Game is running, skipping")
-        time.sleep (15)
+        time.sleep (10)
     if ClientName in RunningProcess:
         try:
             if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 0) == False:
-                print ("Not allowed to play, killing the game...")
                 shutdown_lol ()
+                time.sleep (3)
                 continue
-            time.sleep (1) #1 seconds sleep cuz League is slow AF
+            time.sleep (3) #3 seconds sleep cuz League is slow AF
             #Setup
             LEAGUE_LOCK_FILE = get_lockfile_path()
-            TotalTime = 0
-            TotalGame = 0
             Connection = LeagueConnection(LEAGUE_LOCK_FILE)
             A = get_match_history(Connection, get_summoner_puuid(Connection))
             #Current time
             #Loop over all 20 games in current player's history
+            TempTime = 0
+            TempGame = 0
             for i in range (19, -1, -1):
                 Niggus = {}
                 for tag in Keep:
@@ -152,21 +171,20 @@ while (True):
                     GameHistoryList.append (Niggus)
                     SaveFag = 1
                 #Check if current game is counted depending on game mode
-                TotalGame += 1
-                TotalTime += A['games']['games'][i]['gameDuration']
+                TempGame += 1
+                TempTime += A['games']['games'][i]['gameDuration']
             #There is a new game recorded, so we start updating the file.
             if (SaveFag == 1):
                 print ('\n_______________________________')
-                print ("Adding game time (hour): ",TotalTime/60/60)
-                print ("Adding games count: ",TotalGame)
+                print ("Adding game time (hour): ",TempTime/60/60)
+                print ("Adding games count: ",TempGame)
                 write_history (GameHistoryList)
                 SaveFag = 0
             elif (SaveFag == 0):
                 SaveFag = -1
                 CheckingTime = min(int(CheckingTime * 2), 600)
                 print ("Nothing new, skipping")
-            if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 1) == False:
-                print ("Not allowed to play, killing the game...")
+            if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 0) == False:
                 shutdown_lol ()
                 CheckingTime = 10
             else:
@@ -179,7 +197,6 @@ while (True):
             #raise #raise the exception instead of ommiting it.
     else:
         pass
-        #print ("League not running")
     time.sleep (3) #1 seconds sleep
 
 
