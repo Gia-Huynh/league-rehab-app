@@ -14,3 +14,16 @@ Todo list:
 .After everything is done and finish:
 - Running as system service.
 - Installer.
+
+
+Buoc 1: Convert sex.py sang file exe. (DONE)
+Buoc 2: Test cach nao do de khoi tao Windows Service chay sex.exe
+Buoc 3: Viet ham wrapper de thuc hien khoi tao, disable, uninstall sex.exe
+Buoc 4: Convert wrapper do thanh mot standalone application de nguoi dung co the bat/tat-install de dang.
+Buoc 4: Them option install hard core va gan cung du lieu hardcore for extreme league fanboy.
+
+Bakup: SchTasks /Create /TN LolRehab /RU "SYSTEM" /NP /SC ONLOGON /TR ""
+/it
+Todo List: Update Ini file by editing bat.
+Todo List: Launch Scheduled Task.
+Todo List: Allow for [Custom game, matched game] check with [Aram, Summoner's Rift] choice
