@@ -1,8 +1,9 @@
 import configparser
 import ast
 def save_config (ConfigData, filename):
+    #config = configparser.ConfigParser()
     with open(filename, 'w') as configfile:
-        config.write(configfile)
+        ConfigData.write(configfile)
 def load_config (filename):
     config = configparser.ConfigParser()
     config.read(filename)

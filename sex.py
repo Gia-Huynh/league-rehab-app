@@ -14,7 +14,7 @@ from win10toast import ToastNotifier
 LEAGUE_LOCK_FILE = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
 CONFIG_FILE_LOCATION = "params.ini"
 ConfigData = util_function.load_config_preprocessed (CONFIG_FILE_LOCATION)
-#HISTORY_FILE_LOCATION = "PlayerHistory.ngga"
+GameModeList, GameTypeList = util_function.load_gamemode_gametype (ConfigData)
 HISTORY_FILE_LOCATION = ConfigData["CoreSetting"]["savefilepath"]
 #Hard coded value that is not meant to be changed
 Keep = ['endOfGameResult', 'gameCreationDate', 'gameDuration',
@@ -24,12 +24,8 @@ ClientName = 'League of Legends'
 ClientExeName = 'LeagueClient.exe'
 #GameModeList = ['CLASSIC', 'PRACTICETOOL', 'ARAM']
 #GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
-#GameModeList = ['CLASSIC', 'ARAM']
-#GameTypeList = ['MATCHED_GAME']
-GameModeList, GameTypeList = util_function.load_gamemode_gametype (ConfigData)
 LolTaskRemoveList = ['LeagueCrashHandler64.exe','LeagueClientUxRender.exe',
                      'LeagueClientUx.exe','LeagueClient.exe']
-
 def find_path(name):
     for pid in psutil.pids():
         if psutil.Process(pid).name() == name:
