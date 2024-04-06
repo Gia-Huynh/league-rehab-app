@@ -24,8 +24,9 @@ ClientName = 'League of Legends'
 ClientExeName = 'LeagueClient.exe'
 #GameModeList = ['CLASSIC', 'PRACTICETOOL', 'ARAM']
 #GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
-GameModeList = ['CLASSIC', 'ARAM']
-GameTypeList = ['MATCHED_GAME']
+#GameModeList = ['CLASSIC', 'ARAM']
+#GameTypeList = ['MATCHED_GAME']
+GameModeList, GameTypeList = util_function.load_gamemode_gametype (ConfigData)
 LolTaskRemoveList = ['LeagueCrashHandler64.exe','LeagueClientUxRender.exe',
                      'LeagueClientUx.exe','LeagueClient.exe']
 

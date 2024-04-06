@@ -21,16 +21,18 @@ def load_config_preprocessed (filename):
         except Exception as e:
             pass
     return settings
+def load_gamemode_gametype (ConfigData):
+    GameModeOGList = ["CLASSIC", "ARAM", "PRACTICETOOL"]
+    GameTypeOGList = ["MATCHED_GAME", "CUSTOM_GAME"]
+    GameModeList = []
+    GameTypeList = []
+    for a in GameModeOGList:
+        if (ConfigData ["GameModeList"][a.lower()] == "1"):
+            GameModeList.append (a)
+    for a in GameTypeOGList:
+        if (ConfigData ["GameTypeList"][a.lower()] == "1"):
+            GameTypeList.append (a)
+    return GameModeList, GameTypeList
+    #if (ConfigData):
 #a = load_config_preprocessed ('params.ini')
-
-"""Bad code, deleteing
-from datetime import date, datetime
-def diff_dates (date1, date2):
-    return abs(date2-date1).days
-def diff_hours (date1, date2):
-    return abs(date2-date1).hour
-past = datetime.now()
-a = load_config_preprocess ('params.ini')
-now = datetime.now()
-print (diff_hours(past, now))
-"""
+#b,c = load_gamemode_gametype (a)
