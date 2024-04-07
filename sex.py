@@ -116,7 +116,7 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
             niggerString = "Total time exceeded, you have played for "+ str(int(SumTime+0.5))+ " minutes, maximum time allowed is "+ str(Limit[2]) +" minutes. Ruleset name: \'"+ str(Limit[6])+"\'"
             printReason (niggerString)            
             return False
-        if (SumTime > Limit [1]) and (SumGame > Limit [0]):
+        if (SumTime > Limit [1]) and (SumGame >= Limit [0]):
             niggerString = "Total game count and game time exceeded, you have played "+ str(SumGame)+" games for "+ str(int(SumTime+0.5))+" minutes, maximum game count allowed is "+ str(Limit[0])+" games.Ruleset name: \'",Limit[6],"\'"
             printReason (niggerString)
             return False
