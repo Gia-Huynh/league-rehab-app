@@ -6,6 +6,7 @@ import time
 import traceback
 from datetime import date, datetime, timedelta
 import win32gui, psutil, json, os
+import sys
 from winotify import Notification
 import util_function
 from win10toast import ToastNotifier
@@ -132,18 +133,24 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
                 print ("Allowed, reason: ",limit)
     return tempFlag
 
+sys.stdout.flush()
+#sys.stdout=open("xxxtmp", "wt")
 GameHistoryList = read_history()
 SaveFag = 0
 CheckingTime = 10
 SumGame = 0
+
 print ("Initializing")
 while (True):
     RunningProcess = get_running_process()
+    #print ("Checking....")
     if GameName in RunningProcess:
         CheckingTime = 5
-        print ("Game is running, skipping")
+        #print ("Game is running, skipping")
         time.sleep (10)
-    if ClientName in RunningProcess:
+    #if ClientName in RunningProcess:
+    if ("LeagueClient.exe" in (p.name() for p in psutil.process_iter())):
+        print ("Ayyy it's in running process, checking")
         try:
             if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 0) == False:
                 shutdown_lol ()
@@ -183,17 +190,30 @@ while (True):
                 print ("Nothing new, skipping")
             if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 0) == False:
                 shutdown_lol ()
+                print ("Lol shutting down")
                 CheckingTime = 10
             else:
+                print ("Lol NOT shutting down")
                 CheckingTime = 60
+            sys.stdout.flush()
             time.sleep (CheckingTime) #100 seconds sleep
         except Exception as ex:
-            print ("Exception! Game closed or problem with lockfile")
-            print ("Exception details: ",ex)
+            print ("Exception! Something is wrong.")
+            print ("Exception Details: ",ex)
             print(traceback.format_exc())
-            #raise #raise the exception instead of ommiting it.
+            
+            sys.stdout.flush()
+            raise #raise the exception instead of ommiting it.
     else:
+        #print ("ClientName not in running process")
+        #print("LeagueClient.exe" in (p.name() for p in psutil.process_iter()))
+        #print(list(p.name() for p in psutil.process_iter()))    
+        #sys.stdout.flush()
         pass
+    #sys.stdout.flush()
+    #sys.stdout.close()
+    #sys.stdout=open("xxxtmpooo", "a")
+    #sys.stdout = sys.__stdout__
     time.sleep (3) #1 seconds sleep
 
 
