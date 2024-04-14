@@ -20,8 +20,8 @@ HISTORY_FILE_LOCATION = ConfigData["CoreSetting"]["savefilepath"]
 #Hard coded value that is not meant to be changed
 Keep = ['endOfGameResult', 'gameCreationDate', 'gameDuration',
         'gameMode', 'gameType']
-GameName = 'League of Legends (TM) Client'
-ClientName = 'League of Legends'
+GameName = 'League of Legends.exe'
+#ClientName = 'League of Legends'
 ClientExeName = 'LeagueClient.exe'
 #GameModeList = ['CLASSIC', 'PRACTICETOOL', 'ARAM']
 #GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
@@ -133,8 +133,9 @@ def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 
                 print ("Allowed, reason: ",limit)
     return tempFlag
 
+#sys.stdout = sys.__stdout__
 sys.stdout.flush()
-#sys.stdout=open("xxxtmp", "wt")
+sys.stdout=open("TempFile", "wt")
 GameHistoryList = read_history()
 SaveFag = 0
 CheckingTime = 10
@@ -142,16 +143,15 @@ SumGame = 0
 
 print ("Initializing")
 while (True):
-    RunningProcess = get_running_process()
-    #print ("Checking....")
-    if GameName in RunningProcess:
-        CheckingTime = 5
-        #print ("Game is running, skipping")
-        time.sleep (10)
-    #if ClientName in RunningProcess:
-    if ("LeagueClient.exe" in (p.name() for p in psutil.process_iter())):
-        print ("Ayyy it's in running process, checking")
-        try:
+    try:
+        RunningProcess = get_running_process()
+        #print ("Checking....")
+        if (GameName in (p.name() for p in psutil.process_iter())):
+            CheckingTime = 5
+            print ("Game is running, skipping")
+            time.sleep (10)
+        elif (ClientExeName in (p.name() for p in psutil.process_iter())):
+            print ("Ayyy it's in running process, checking")
             if check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, 0) == False:
                 shutdown_lol ()
                 time.sleep (3)
@@ -193,27 +193,26 @@ while (True):
                 print ("Lol shutting down")
                 CheckingTime = 10
             else:
-                print ("Lol NOT shutting down")
+                print ("Keeping lol, not shutting down")
                 CheckingTime = 60
             sys.stdout.flush()
             time.sleep (CheckingTime) #100 seconds sleep
-        except Exception as ex:
-            print ("Exception! Something is wrong.")
-            print ("Exception Details: ",ex)
-            print(traceback.format_exc())
-            
-            sys.stdout.flush()
-            raise #raise the exception instead of ommiting it.
-    else:
-        #print ("ClientName not in running process")
-        #print("LeagueClient.exe" in (p.name() for p in psutil.process_iter()))
-        #print(list(p.name() for p in psutil.process_iter()))    
-        #sys.stdout.flush()
-        pass
-    #sys.stdout.flush()
-    #sys.stdout.close()
-    #sys.stdout=open("xxxtmpooo", "a")
-    #sys.stdout = sys.__stdout__
-    time.sleep (3) #1 seconds sleep
+        else:
+            #print ("ClientName not in running process")
+            pass
+        time.sleep (4) #1 seconds sleep
+    except Exception as ex:
+        print ("Exception! Something is wrong.")
+        print ("Exception Details: ",ex)
+        print (traceback.format_exc())
+        sys.stdout.flush()
+        sys.stdout.close()
+        #RenameFile
+        try:
+            os.rename('TempFile', 'LastException.txt')
+        except:
+            pass
+        sys.stdout=open("TempFile", "wt")
+        #raise #raise the exception instead of ommiting it.
 
 
