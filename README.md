@@ -1,6 +1,7 @@
 # League Of Legends rehabilitation app  
-I wasted lots of my time playing League so I'm trynna making this app to shut down LoL when I exceeded my time limit. Haven't tested with TFT yet so I would love to have some dev working on it.
-
+I wasted lots of my time playing League so I'm trynna making this app to shut down LoL when I exceeded my time limit. Haven't tested with TFT yet so I would love to have some dev working on it.  
+  
+![GUI Image](Github%20README%20Resources/1.PNG?raw=true "Title")
 ## Feature
 - Storing game history to prevent practice tool abuser that overwrites game's history.
 - Multiple different limits (1 day, 1 week, 1 month).
