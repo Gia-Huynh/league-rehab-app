@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>628</height>
+    <width>774</width>
+    <height>767</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="Button_AddLimit">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>390</y>
+     <x>430</x>
+     <y>480</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -29,11 +29,11 @@
     <string>Add Limit</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="Button_Update_Config">
+  <widget class="QPushButton" name="Button_Export_Config">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>580</y>
+     <x>550</x>
+     <y>730</y>
      <width>191</width>
      <height>28</height>
     </rect>
@@ -42,15 +42,15 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save config to file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>Update saved config</string>
+    <string>Export config</string>
    </property>
   </widget>
   <widget class="QPushButton" name="Button_RemoveLimit">
    <property name="geometry">
     <rect>
-     <x>510</x>
-     <y>390</y>
-     <width>93</width>
+     <x>530</x>
+     <y>480</y>
+     <width>161</width>
      <height>28</height>
     </rect>
    </property>
@@ -58,26 +58,16 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove the selected limit from the list&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="text">
-    <string>Remove Limit</string>
-   </property>
-  </widget>
-  <widget class="QListWidget" name="listWidget">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>440</y>
-     <width>561</width>
-     <height>131</height>
-    </rect>
+    <string>Remove Selected Rows of Limit</string>
    </property>
   </widget>
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>90</x>
      <y>140</y>
-     <width>561</width>
-     <height>16</height>
+     <width>611</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="lineWidth">
@@ -90,7 +80,7 @@
   <widget class="QFrame" name="LimitTimeFrame">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>90</x>
      <y>150</y>
      <width>591</width>
      <height>151</height>
@@ -196,18 +186,21 @@
    <widget class="QTimeEdit" name="TimeFrameEnd">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>200</x>
       <y>30</y>
-      <width>81</width>
+      <width>91</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ending time&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="SelectAllDay">
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>80</y>
+      <y>90</y>
       <width>151</width>
       <height>28</height>
      </rect>
@@ -220,7 +213,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>80</y>
+      <y>90</y>
       <width>131</width>
       <height>28</height>
      </rect>
@@ -234,19 +227,25 @@
      <rect>
       <x>60</x>
       <y>30</y>
-      <width>81</width>
+      <width>101</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time to begin checking for game&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>170</x>
       <y>30</y>
       <width>21</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ending time&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>TO</string>
@@ -261,6 +260,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time in day that this limit is applicable. (Example: Only enforce limit after 6PM)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time in day that this limit is applicable. (Example: Only enforce limit after 6PM)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -272,7 +274,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>80</y>
+      <y>90</y>
       <width>131</width>
       <height>28</height>
      </rect>
@@ -285,10 +287,13 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>60</y>
+      <y>70</y>
       <width>81</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Day in week that this limit apply&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Day in week that this limit apply&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -306,6 +311,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time to begin checking for game&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="text">
      <string>FROM </string>
     </property>
@@ -314,7 +322,7 @@
   <widget class="QFrame" name="GameModeFrame">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>100</x>
      <y>10</y>
      <width>561</width>
      <height>131</height>
@@ -364,6 +372,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Do you want to count normal match-making games?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Do you want to count normal match-making games?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -403,11 +414,14 @@
    <widget class="QSpinBox" name="TimeOffset">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>101</x>
       <y>100</y>
-      <width>42</width>
+      <width>61</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>24</number>
     </property>
    </widget>
    <widget class="QCheckBox" name="CB_CustomGame">
@@ -419,6 +433,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Do you want to count custom games?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Do you want to count custom games?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
@@ -426,13 +443,29 @@
      <string>CUSTOM GAME</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>100</y>
+      <width>41</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>(hours)</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="LimitValue">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>310</y>
-     <width>281</width>
+     <x>50</x>
+     <y>320</y>
+     <width>341</width>
      <height>121</height>
     </rect>
    </property>
@@ -442,24 +475,17 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QSpinBox" name="CheckingDuration">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>0</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
+      <y>30</y>
       <width>201</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum of game time that makes you satisfied, in case you played 2 games in a row that enemy team surrender at 5 minutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum of game time that makes you satisfied, in case you played 2 games in a row that enemy team surrender at 5 minutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -468,7 +494,7 @@
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="text">
-     <string>Very Satisfying Total Game Length:</string>
+     <string>Satisfying Total Game Length:</string>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -481,10 +507,13 @@
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>30</y>
+      <y>0</y>
       <width>101</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -505,66 +534,71 @@
    <widget class="QSpinBox" name="MinGameLength">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>60</y>
-      <width>42</width>
+      <x>221</x>
+      <y>30</y>
+      <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum of game time that makes you satisfied, in case you played 2 games in a row that enemy team surrender at 5 minutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>9999</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="MaxGameCount">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>30</y>
-      <width>42</width>
+      <x>221</x>
+      <y>0</y>
+      <width>51</width>
       <height>22</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>99999</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="MaxGameLength">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>90</y>
-      <width>42</width>
+      <x>221</x>
+      <y>60</y>
+      <width>51</width>
       <height>22</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QLabel" name="label_9">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>0</y>
-      <width>111</width>
-      <height>20</height>
-     </rect>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
-    <property name="whatsThis">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <property name="minimum">
+     <number>-1</number>
     </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="text">
-     <string>Checking Duration:</string>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    <property name="maximum">
+     <number>9999</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
       <x>-20</x>
-      <y>90</y>
+      <y>60</y>
       <width>231</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="whatsThis">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -582,15 +616,227 @@
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>30</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>(minutes)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>60</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>(minutes)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>90</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Checking Duration:</string>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>90</y>
+      <width>51</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>(hours)</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="CheckingDuration">
+    <property name="geometry">
+     <rect>
+      <x>221</x>
+      <y>90</y>
+      <width>51</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="minimum">
+     <number>-1</number>
+    </property>
+    <property name="maximum">
+     <number>9999</number>
+    </property>
+   </widget>
+   <zorder>CheckingDuration</zorder>
+   <zorder>label_7</zorder>
+   <zorder>label_8</zorder>
+   <zorder>MinGameLength</zorder>
+   <zorder>MaxGameCount</zorder>
+   <zorder>MaxGameLength</zorder>
+   <zorder>label_6</zorder>
+   <zorder>label_13</zorder>
+   <zorder>label_14</zorder>
+   <zorder>label_9</zorder>
+   <zorder>label_12</zorder>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>520</y>
+     <width>701</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAsNeeded</enum>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <column>
+    <property name="text">
+     <string>Time Frame</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Day In Week</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Max Game Count</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Satisfying Game Length</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Hard Limit Game Length</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Checking Duration</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>350</y>
+     <width>261</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>320</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>Name (Can be empty):</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+   </property>
   </widget>
   <zorder>LimitValue</zorder>
   <zorder>GameModeFrame</zorder>
   <zorder>LimitTimeFrame</zorder>
   <zorder>Button_AddLimit</zorder>
-  <zorder>Button_Update_Config</zorder>
+  <zorder>Button_Export_Config</zorder>
   <zorder>Button_RemoveLimit</zorder>
-  <zorder>listWidget</zorder>
   <zorder>line</zorder>
+  <zorder>tableWidget</zorder>
+  <zorder>plainTextEdit</zorder>
+  <zorder>label_11</zorder>
  </widget>
  <resources/>
  <connections/>

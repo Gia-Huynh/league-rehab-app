@@ -1,3 +1,3 @@
 cd ..
-pyside6-uic test.ui -o ui_test.py
+pyside6-uic "Main User Interface.ui" -o Main_UI.py
 pause
