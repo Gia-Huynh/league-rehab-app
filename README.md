@@ -18,6 +18,9 @@ I wasted lots of my time playing League so I'm trynna making this app to shut do
 5. Run file `Install.bat`
 6. Profit
 This app does not have any association with Riot Games and League Of Legends, I do not take any resposibility over your LP loss.
+  
+## Known bugs
+Practice Tool and Match Game button is incorrectly displayed in the ConfigGenerator.exe file
 # Tiếng Việt
  App cai nghiện game Liên Minh Huyền Thoại, TFT thì chưa test do tôi không chơi. 
  
