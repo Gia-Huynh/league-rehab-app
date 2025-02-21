@@ -4,23 +4,26 @@ I wasted lots of my time playing League so I'm trynna making this app to shut do
   
 ![GUI Image](Github%20README%20Resources/1.PNG?raw=true "Title")
 ## Feature
-- Storing game history to prevent practice tool abuser that overwrites game's history.
-- Multiple different limits (1 day, 1 week, 1 month).
+- Vanguard compatible, no ban risk (This simply uses LoL's Api and does not interfere with the game in any means).
 - Allowing custom limits according to your desire.
+- Multiple different limits (daily limit, weekly limit, monthly limit).
 - Allowing to check [Custom game, Matched game] with map choice of [Aram, Summoner's Rift, Practice Tool].
-- Running in background with Installer.
+- Running in background as a service with Installer.
+- Storing game history to prevent practice tool abuser that overwrites game's history.
   
 ## How to install
-1. Go into [release page](https://github.com/Gia-Huynh/league-rehab-app/releases). There will be several different release version, each release version will contain 3 files, which are: `LolRehab.zip`, `Source code (zip)` và `Source code (tar.gz)`.
+0. [Latest zip file here](https://github.com/Gia-Huynh/league-rehab-app/releases/download/1.2.0/LolRehabV1.2.zip) <-- Download and extract it and skip to step 4. Or alternatively...
+1. Visit [release page](https://github.com/Gia-Huynh/league-rehab-app/releases). There will be several different release version, each release version will contain 3 files, which are: `LolRehab.zip`, `Source code (zip)` và `Source code (tar.gz)`.
 2. Look at the latest release, and download the file `LolRehab.zip`.
 3. Extract it, go inside the folder.
 4. [Optional, you can skip this part] The default setting can already help with the rehabilitation process. It's not too strict so if you want to change the setting, you can directly change `params.ini` or run `generateConfig.exe` to create the config file.
 5. Run file `Install.bat`
 6. Profit
 This app does not have any association with Riot Games and League Of Legends, I do not take any resposibility over your LP loss.
-  
+## Goal
+If there is 5% less LoL player every year, I shall be satisfied.
 ## Known bugs
-Practice Tool and Match Game button is incorrectly displayed in the ConfigGenerator.exe file
+Practice Tool and Match Game button is incorrectly displayed in the ConfigGenerator.exe file, edit the ini file directly to be sure.
 # Tiếng Việt
  App cai nghiện game Liên Minh Huyền Thoại, TFT thì chưa test do tôi không chơi. 
  
