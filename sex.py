@@ -10,8 +10,6 @@ import sys
 from winotify import Notification
 import util_function
 from win10toast import ToastNotifier
-#riot_lockfile = 'C:/Users/Za/AppData/Local/Riot Games/Riot Client/Config/lockfile'
-#riot_connection = LeagueConnection(riot_lockfile)
 LEAGUE_LOCK_FILE = 'C:/Program Files (x86)/Riot Games/League of Legends/ayyy'
 CONFIG_FILE_LOCATION = "params.ini"
 ConfigData = util_function.load_config_preprocessed (CONFIG_FILE_LOCATION)
@@ -21,18 +19,13 @@ HISTORY_FILE_LOCATION = ConfigData["CoreSetting"]["savefilepath"]
 Keep = ['endOfGameResult', 'gameCreationDate', 'gameDuration',
         'gameMode', 'gameType']
 GameName = 'League of Legends.exe'
-#ClientName = 'League of Legends'
 ClientExeName = 'LeagueClient.exe'
-#GameModeList = ['CLASSIC', 'PRACTICETOOL', 'ARAM']
-#GameTypeList = ['CUSTOM_GAME', 'MATCHED_GAME']
 LolTaskRemoveList = ['LeagueCrashHandler64.exe','LeagueClientUxRender.exe',
                      'LeagueClientUx.exe','LeagueClient.exe']
 def find_path(name):
     for pid in psutil.pids():
         if psutil.Process(pid).name() == name:
-            #print ("FOUND ", name)
             return psutil.Process(pid).exe()
-    #print ("find_path NOT FOUND!!!!!!", name)
 def get_lockfile_path ():
     leagueClientLocation = find_path(ClientExeName)
     if os.path.exists(leagueClientLocation):
@@ -82,7 +75,7 @@ def printReason (KillReason = "nigger"):
     toast = ToastNotifier()
     toast = Notification(app_id="LoL Rehab",
              title="Touch some grass",
-             msg="You have set a goal for this, obey it!\n.Get something else to do man, if you have nothing to do, it's your fault, stop playing the game")
+             msg="Stop playing league, touch some grass")
     toast.show()
 def check_eligibility (GameHistoryList, ConfigData, GameModeList, GameTypeList, verbose = 0):
 #Check if the player is eligible to play, return True if allowed

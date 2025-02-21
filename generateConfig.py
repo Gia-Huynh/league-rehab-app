@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QCheckBox
 import sys
 from PySide6 import QtWidgets, QtGui
 from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6.QtCore import QFile
+from PySide6.QtCore import QFile, Qt
 from Main_UI import Ui_Dialog  # Import the generated class
 import util_function, ast, json
 class MyMainWindow(QMainWindow):
