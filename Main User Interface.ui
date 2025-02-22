@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1140</width>
-    <height>713</height>
+    <width>1161</width>
+    <height>808</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QFrame" name="GameModeFrame">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>9</y>
+     <x>10</x>
+     <y>10</y>
      <width>841</width>
-     <height>109</height>
+     <height>151</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -176,6 +176,13 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="0" colspan="3" alignment="Qt::AlignTop">
+     <widget class="QLabel" name="PerLimit_2">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Global Limit Setting (Will Apply to All Limits)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
    </layout>
    <zorder>CB_Classic</zorder>
    <zorder>CB_Aram</zorder>
@@ -186,12 +193,13 @@
    <zorder>CB_CustomGame</zorder>
    <zorder>CB_MatchedGame</zorder>
    <zorder>line</zorder>
+   <zorder>PerLimit_2</zorder>
   </widget>
   <widget class="QFrame" name="LimitTimeFrame">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>271</y>
+     <x>10</x>
+     <y>350</y>
      <width>1001</width>
      <height>161</height>
     </rect>
@@ -435,8 +443,8 @@
   <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>438</y>
+     <x>0</x>
+     <y>540</y>
      <width>1121</width>
      <height>266</height>
     </rect>
@@ -569,10 +577,10 @@
   <widget class="QFrame" name="LimitValue">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>124</y>
+     <x>10</x>
+     <y>160</y>
      <width>861</width>
-     <height>141</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="minimumSize">
@@ -596,12 +604,78 @@
     <property name="horizontalSpacing">
      <number>25</number>
     </property>
-    <item row="2" column="3" rowspan="3">
-     <widget class="QPlainTextEdit" name="plainTextEdit">
+    <item row="3" column="2">
+     <widget class="QLabel" name="label_14">
       <property name="font">
        <font>
         <pointsize>12</pointsize>
        </font>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>(minutes)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QSpinBox" name="MinGameLength">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum of game time that makes you satisfied, in case you played 2 games in a row that enemy team surrender at 5 minutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="minimum">
+       <number>-1</number>
+      </property>
+      <property name="maximum">
+       <number>9999</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QLabel" name="label_13">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="text">
+       <string>(minutes)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="whatsThis">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="text">
+       <string>Maximum Total Game Length:</string>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -623,8 +697,17 @@
       </property>
      </widget>
     </item>
+    <item row="2" column="3" rowspan="3">
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="3">
-     <widget class="QLabel" name="label_11">
+     <widget class="QLabel" name="LimitName">
       <property name="font">
        <font>
         <pointsize>12</pointsize>
@@ -637,40 +720,13 @@
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Name (Can be empty):</string>
+       <string>Limit Name (Can be empty):</string>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_8">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="text">
-       <string>Max Game Count:</string>
-      </property>
-      <property name="scaledContents">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -713,24 +769,24 @@
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_9">
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_8">
       <property name="font">
        <font>
         <pointsize>12</pointsize>
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of games allowed to play. (Game that is too short will be handled by the &amp;quot;Very Satisfying Total Game Length&amp;quot; box below)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Checking Duration:</string>
+       <string>Max Game Count:</string>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -782,24 +838,24 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_6">
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_9">
       <property name="font">
        <font>
         <pointsize>12</pointsize>
        </font>
       </property>
       <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If your total game time exceed this value, no more game. (Use in case of one long ass 70 minutes game for example)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Time frame for the limit, game played before this time is not counted.&lt;/p&gt;&lt;p&gt;Example: 24 hours for daily limit, 168 hours for 7 days limit, 672 hours for 30 days limit&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
       <property name="text">
-       <string>Maximum Total Game Length:</string>
+       <string>Checking Duration:</string>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
@@ -809,51 +865,10 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
-     <widget class="QLabel" name="label_14">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
+    <item row="0" column="0" colspan="4">
+     <widget class="QLabel" name="PerLimit">
       <property name="text">
-       <string>(minutes)</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QSpinBox" name="MinGameLength">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum of game time that makes you satisfied, in case you played 2 games in a row that enemy team surrender at 5 minutes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="minimum">
-       <number>-1</number>
-      </property>
-      <property name="maximum">
-       <number>9999</number>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QLabel" name="label_13">
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="whatsThis">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Entered 6 means that any game played before 6AM of a day will be counted as the day before, useful if you don't want to reset the gaming counter after midnight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-      <property name="text">
-       <string>(minutes)</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Per Limit Setting&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -869,8 +884,9 @@
    <zorder>label_14</zorder>
    <zorder>label_9</zorder>
    <zorder>label_12</zorder>
-   <zorder>label_11</zorder>
+   <zorder>LimitName</zorder>
    <zorder>plainTextEdit</zorder>
+   <zorder>PerLimit</zorder>
   </widget>
  </widget>
  <resources/>

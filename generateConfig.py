@@ -20,8 +20,8 @@ class MyMainWindow(QMainWindow):
             self.ui.CB_Classic: self.ConfigData["GameModeList"]["classic"] == '1',
             self.ui.CB_Aram: self.ConfigData["GameModeList"]["aram"] == '1',
             self.ui.CB_PracticeTool: self.ConfigData["GameModeList"]["practicetool"] == '1',
-            self.ui.CB_CustomGame: self.ConfigData["GameTypeList"]["matched_game"]== '1',
-            self.ui.CB_MatchedGame: self.ConfigData["GameTypeList"]["custom_game"]== '1',
+            self.ui.CB_CustomGame: self.ConfigData["GameTypeList"]["custom_game"]== '1',
+            self.ui.CB_MatchedGame: self.ConfigData["GameTypeList"]["matched_game"]== '1',
         }
         self.spinbox_variables = {
             self.ui.TimeOffset: self.ConfigData["CoreSetting"]["timeoffset"],
